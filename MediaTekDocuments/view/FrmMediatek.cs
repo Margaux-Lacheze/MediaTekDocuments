@@ -31,6 +31,17 @@ namespace MediaTekDocuments.view
         }
 
         /// <summary>
+        /// Ouvre les commandes sur le bon onglet
+        /// </summary>
+        /// <param name="indexOnglet"></param>
+        private void OuvrirCommandes(int indexOnglet)
+        {
+            FrmCommandes frmCommandes = new FrmCommandes();
+            frmCommandes.Show();
+            frmCommandes.SelectionnerOnglet(indexOnglet);
+        }
+
+        /// <summary>
         /// Rempli un des 3 combo (genre, public, rayon)
         /// </summary>
         /// <param name="lesCategories">liste des objets de type Genre ou Public ou Rayon</param>
@@ -360,6 +371,16 @@ namespace MediaTekDocuments.view
             }
             RemplirLivresListe(sortedList);
         }
+
+        /// <summary>
+        /// Ouvre le formulaire de gestion des commandes de livres
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGestionCommandesLivres_Click(object sender, EventArgs e)
+        {
+            OuvrirCommandes(0);
+        }
         #endregion
 
         #region Onglet Dvd
@@ -674,6 +695,16 @@ namespace MediaTekDocuments.view
                     break;
             }
             RemplirDvdListe(sortedList);
+        }
+
+        /// <summary>
+        /// Ouvre le formulaire de gestion des commandes de dvd
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGestionCommandeDvd_Click(object sender, EventArgs e)
+        {
+            OuvrirCommandes(1);
         }
         #endregion
 
@@ -1239,5 +1270,7 @@ namespace MediaTekDocuments.view
             }
         }
         #endregion
+
+
     }
 }

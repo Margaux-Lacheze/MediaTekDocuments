@@ -7,6 +7,8 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.Linq;
+using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace MediaTekDocuments.dal
 {
@@ -37,7 +39,11 @@ namespace MediaTekDocuments.dal
         private const string POST = "POST";
         /// <summary>
         /// méthode HTTP pour update
-
+        private const string PUT = "PUT";
+        /// <summary>
+        /// méthode HTTP pour delete
+        /// </summary>
+        private const string DEL = "DELETE";
         /// <summary>
         /// Méthode privée pour créer un singleton
         /// initialise l'accès à l'API
@@ -154,6 +160,109 @@ namespace MediaTekDocuments.dal
             try
             {
                 List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire", "champs=" + jsonExemplaire);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Retourne tous les suivis à partir de la BDD
+        /// </summary>
+        /// <returns></returns>
+        public List<Suivi> GetAllSuivi()
+        {
+            List<Suivi> lesSuivis = TraitementRecup<Suivi>(GET, "suivi", null);
+            return lesSuivis;
+        }
+
+        /// <summary>
+        /// Retourne les commande d'un document type livre ou dvd
+        /// </summary>
+        /// <param name="idDocument">id du document</param>
+        /// <returns></returns>
+        public List<CommandeDocument> GetAllCommandeDocument(string idDocument)
+        {
+            String jsonIdDocument = convertToJson("id", idDocument);
+            List<CommandeDocument> lesCommandesDocuments = TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonIdDocument, null);
+            return lesCommandesDocuments;
+        }
+
+        /// <summary>
+        /// Récupère toutes les commandes et incrémente l'id maximum
+        /// </summary>
+        /// <returns>nouvel id formaté</returns>
+        public string CreerNouvelIdCommande()
+        {
+            List<Commande> lesCommandes = TraitementRecup<Commande>(GET, "commandes", null);
+            string nouvelId;
+            if (lesCommandes != null && lesCommandes.Count > 0)
+            {
+                string idMax = lesCommandes.Max(c => c.Id);
+                int nouvelIdNum = (int.Parse(idMax)) + 1;
+                nouvelId = nouvelIdNum.ToString("00000");
+            }
+            else
+            {
+                nouvelId = "00001";
+            }
+            return nouvelId;
+        }
+
+        ///// <summary>
+        ///// Créé une nouvelle commande de document
+        ///// </summary>
+        ///// <param name="commandeDocument"></param>
+        ///// <returns>True si l'opération s'est bien passée</returns>
+        public bool CreerNouvelleCommandeDocument(CommandeDocument commandeDocument)
+        {
+            String jsonCommandeDocument = JsonConvert.SerializeObject(commandeDocument, new CustomDateTimeConverter());
+            try
+            {
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(POST, "commandedocument", "champs=" + jsonCommandeDocument);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Modification d'une commande en base de données
+        /// </summary>
+        /// <param name="commandeModifiee">commande à modifier</param>
+        /// <returns>true si la modification a pu se faire (retour != null)</returns>
+        public bool ModifierCommandeDocument(CommandeDocument commandeModifiee)
+        {
+            String jsonCommandeDocument = JsonConvert.SerializeObject(commandeModifiee, new CustomDateTimeConverter());
+            try
+            {
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(PUT, "commandedocument", "champs=" + jsonCommandeDocument);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Suppression d'une commande en base de données
+        /// </summary>
+        /// <param name="idCommande">id de la Commande à supprimer</param>
+        /// <returns>True si la suppression a réussi</returns>
+        public bool SupprimerCommande(string idCommande)
+        {
+            String jsonIdCommande = convertToJson("id", idCommande);
+            try
+            {
+                List<Commande> liste = TraitementRecup<Commande>(DEL, "commande/" + jsonIdCommande, null);
                 return (liste != null);
             }
             catch (Exception ex)
