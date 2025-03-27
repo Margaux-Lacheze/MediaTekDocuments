@@ -31,6 +31,17 @@ namespace MediaTekDocuments.view
         }
 
         /// <summary>
+        /// Au lancement de l'application, ouvre la fenêtre qui alerte sur les abonnements arrivant à expiration
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmMediatek_Load(object sender, EventArgs e)
+        {
+            FrmAlerteAbonnements frmAlerteAbonnements = new FrmAlerteAbonnements();
+            frmAlerteAbonnements.ShowDialog();
+        }
+
+        /// <summary>
         /// Ouvre les commandes sur le bon onglet
         /// </summary>
         /// <param name="indexOnglet"></param>
@@ -1017,6 +1028,16 @@ namespace MediaTekDocuments.view
                     break;
             }
             RemplirRevuesListe(sortedList);
+        }
+
+        /// <summary>
+        /// Ouvre l'onglet commandes de revues (abonnement)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRevuesCommandes_Click(object sender, EventArgs e)
+        {
+            OuvrirCommandes(2);
         }
         #endregion
 

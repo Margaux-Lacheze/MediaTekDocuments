@@ -140,9 +140,41 @@ namespace MediaTekDocuments.controller
         /// </summary>
         /// <param name="idCommande">id de la Commande à supprimer</param>
         /// <returns>True si la suppression a réussi</returns>
-        public bool SupprimerCommandeDocument(string idCommande)
+        public bool SupprimerCommande(string idCommande)
         {
             return access.SupprimerCommande(idCommande) ;
+        }
+
+        /// <summary>
+        /// Création d'un abonnement en base de données
+        /// </summary>
+        /// <param name="abonnement"></param>
+        /// <returns>True si l'opération a réussi</returns>
+        public bool CreerNouvelAbonnement(Abonnement abonnement)
+        {
+            return access.CreerNouvelAbonnement(abonnement);
+        }
+
+        /// <summary>
+        /// Récupère tous les abonnements d'une revue
+        /// </summary>
+        /// <param name="idDocument">id de la revue</param>
+        /// <returns>Les abonnements de la revue</returns>
+        public List<Abonnement> GetAllAbonnements(string idDocument)
+        {
+            return access.GetAllAbonnement(idDocument);
+        }
+
+        /// <summary>
+        /// Vérifie si un exemplaire est rattaché à un abonnement (une commande)
+        /// </summary>
+        /// <param name="dateCommande"></param>
+        /// <param name="dateFinAbonnement"></param>
+        /// <param name="dateParutionExemplaire"></param>
+        /// <returns>True si un exemplaire est présent entre la date de commande et la date de fin d'abonnement</returns>
+        public bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateFinAbonnement, DateTime dateParutionExemplaire)
+        {
+            return access.ParutionDansAbonnement(dateCommande, dateFinAbonnement, dateParutionExemplaire) ;
         }
     }
 }

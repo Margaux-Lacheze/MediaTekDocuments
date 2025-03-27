@@ -273,6 +273,67 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
+        /// Création d'un abonnement en base de données
+        /// </summary>
+        /// <param name="abonnement"></param>
+        /// <returns>True si l'opération est réussie</returns>
+        public bool CreerNouvelAbonnement(Abonnement abonnement)
+        {
+            String jsonDocument = JsonConvert.SerializeObject(abonnement, new CustomDateTimeConverter());
+            try
+            {
+                List<Abonnement> liste = TraitementRecup<Abonnement>(POST, "abonnement", "champs=" + jsonDocument);
+                return (liste != null);
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Retourne les abonnements d'une revue
+        /// </summary>
+        /// <param name="idDocument">id du document</param>
+        /// <returns></returns>
+        public List<Abonnement> GetAllAbonnement(string idDocument)
+        {
+            String jsonIdDocument = convertToJson("id", idDocument);
+            List<Abonnement> lesAbonnements = TraitementRecup<Abonnement>(GET, "abonnement/" + jsonIdDocument, null);
+            return lesAbonnements;
+        }
+
+        /// <summary>
+        /// Vérifie si un exemplaire est rattaché à un abonnement
+        /// </summary>
+        /// <param name="dateCommande"></param>
+        /// <param name="dateFinAbonnement"></param>
+        /// <param name="dateParutionExemplaire"></param>
+        /// <returns>True si un exemplaire est présent entre la date de commande et la date de fin d'abonnement</returns>
+        public bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateFinAbonnement, DateTime dateParutionExemplaire)
+        {
+            if (dateParutionExemplaire >= dateCommande && dateParutionExemplaire <= dateFinAbonnement)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Récupère les abonnements arrivant à expiration d'ici 30 jours
+        /// </summary>
+        /// <returns>liste des abonnements arrivant à expiration</returns>
+        public List<AbonnementExpiration> GetAllAbonnementExpiration()
+        {
+            List<AbonnementExpiration> lesAbonnementsExpirant = TraitementRecup<AbonnementExpiration>(GET, "expiration", null);
+            return lesAbonnementsExpirant;
+        }
+
+        /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>
         /// <typeparam name="T"></typeparam>
