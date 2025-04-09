@@ -31,14 +31,32 @@ namespace MediaTekDocuments.view
         }
 
         /// <summary>
-        /// Au lancement de l'application, ouvre la fenêtre qui alerte sur les abonnements arrivant à expiration
+        /// Gestion de l'affichage des contrôles selon le service de l'utilisateur, au chargement du formulaire
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void FrmMediatek_Load(object sender, EventArgs e)
         {
-            FrmAlerteAbonnements frmAlerteAbonnements = new FrmAlerteAbonnements();
-            frmAlerteAbonnements.ShowDialog();
+            if (Service.IdService == 2)
+            {
+                btnGestionCommandesLivres.Visible = false;
+                btnGestionCommandeDvd.Visible = false;
+                btnRevuesCommandes.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// Affichage de la fenêtre des alertes abonnement pour les services administratifs et l'administrateur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FrmMediatek_Shown(object sender, EventArgs e)
+        {
+            if (Service.IdService == 1 || Service.IdService == 4)
+            {
+                FrmAlerteAbonnements frmAlerteAbonnements = new FrmAlerteAbonnements();
+                frmAlerteAbonnements.ShowDialog();
+            }
         }
 
         /// <summary>
@@ -1290,6 +1308,7 @@ namespace MediaTekDocuments.view
                 pcbReceptionExemplaireRevueImage.Image = null;
             }
         }
+
         #endregion
 
 

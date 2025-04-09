@@ -14,7 +14,14 @@ namespace MediaTekDocuments
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMediatek());
+            FrmAuthentification frmAuth = new FrmAuthentification();
+
+            DialogResult result = frmAuth.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                Application.Run(new FrmMediatek());
+            }
         }
     }
 }

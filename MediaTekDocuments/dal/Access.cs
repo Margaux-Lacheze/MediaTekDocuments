@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Linq;
 using System.Xml.Linq;
 using System.Diagnostics;
+using MediaTekDocuments.utils;
 
 namespace MediaTekDocuments.dal
 {
@@ -331,6 +332,35 @@ namespace MediaTekDocuments.dal
         {
             List<AbonnementExpiration> lesAbonnementsExpirant = TraitementRecup<AbonnementExpiration>(GET, "expiration", null);
             return lesAbonnementsExpirant;
+        }
+
+        /// <summary>
+        /// Récupère les informations d'un utilisateur si le couple login/password est correct
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns>un objet de type Utilisateur</returns>
+        public Utilisateur CheckUtilisateur(string login, string password)
+        {
+            String jsonLogin = convertToJson("login", login);
+            List<Utilisateur> utilisateur = TraitementRecup<Utilisateur>(GET, "utilisateur/" + jsonLogin, null);
+            if (utilisateur != null && utilisateur.Count > 0)
+            {
+                Utilisateur utilisateurCheck = utilisateur[0];
+                string utilisateurPwd = utilisateurCheck.Password;
+                if (Utils.VerifyPassword(password, utilisateurPwd))
+                {
+                    return utilisateurCheck;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
