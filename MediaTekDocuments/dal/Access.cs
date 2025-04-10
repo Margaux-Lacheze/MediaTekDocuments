@@ -10,6 +10,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Diagnostics;
 using MediaTekDocuments.utils;
+using Serilog;
 
 namespace MediaTekDocuments.dal
 {
@@ -51,6 +52,13 @@ namespace MediaTekDocuments.dal
         /// </summary>
         private Access()
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Console()
+                .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("logs/errorlog.txt", restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information)
+                .CreateLogger();
+
             String authenticationString;
             try
             {
@@ -61,6 +69,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception e)
             {
+                Log.Fatal(e, "Access.Access() - Erreur lors de la tentative de connexion à l'API : {0}", e.Message);
                 Console.WriteLine(e.Message);
                 Environment.Exit(0);
             }
@@ -167,6 +176,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Access.CreerExemplaire - Erreur lors de la création d'un exemplaire: {0}", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -230,6 +240,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Access.CreerNouvelleCommandeDocument - Erreur lors de la création d'une commande de document: {0}", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -250,6 +261,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Access.ModifierCommande - Erreur lors de la modification d'une commande: {0}", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -270,6 +282,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Access.SupprimerCommande - Erreur lors de la suppression d'une commande: {0}", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -290,6 +303,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex) 
             {
+                Log.Error(ex, "Access.CreerNouvelAbonnement - Erreur lors de la création d'un abonnement: {0}", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -375,10 +389,12 @@ namespace MediaTekDocuments.dal
                 }
                 else
                 {
+                    Log.Error("Access.TraitementRecup - Le code de retour de l'API doit être 200: code={0}, message={1}", code, (String)retour["message"]);
                     Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
                 }
             }catch(Exception e)
             {
+                Log.Fatal(e, "Access.TraitementRecup - Erreur lors de la tentative d'accès à l'API: {0}", e.Message);
                 Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
                 Environment.Exit(0);
             }
