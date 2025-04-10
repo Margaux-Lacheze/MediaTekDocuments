@@ -164,17 +164,5 @@ namespace MediaTekDocuments.controller
         {
             return access.GetAllAbonnement(idDocument);
         }
-
-        /// <summary>
-        /// Vérifie si un exemplaire est rattaché à un abonnement (une commande)
-        /// </summary>
-        /// <param name="dateCommande"></param>
-        /// <param name="dateFinAbonnement"></param>
-        /// <param name="dateParutionExemplaire"></param>
-        /// <returns>True si un exemplaire est présent entre la date de commande et la date de fin d'abonnement</returns>
-        public bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateFinAbonnement, DateTime dateParutionExemplaire)
-        {
-            return access.ParutionDansAbonnement(dateCommande, dateFinAbonnement, dateParutionExemplaire) ;
-        }
     }
 }

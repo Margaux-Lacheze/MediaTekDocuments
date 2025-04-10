@@ -63,7 +63,7 @@ namespace MediaTekDocuments.view
         /// Ouvre les commandes sur le bon onglet
         /// </summary>
         /// <param name="indexOnglet"></param>
-        private void OuvrirCommandes(int indexOnglet)
+        private static void OuvrirCommandes(int indexOnglet)
         {
             FrmCommandes frmCommandes = new FrmCommandes();
             frmCommandes.Show();
@@ -76,7 +76,7 @@ namespace MediaTekDocuments.view
         /// <param name="lesCategories">liste des objets de type Genre ou Public ou Rayon</param>
         /// <param name="bdg">bindingsource contenant les informations</param>
         /// <param name="cbx">combobox à remplir</param>
-        public void RemplirComboCategorie(List<Categorie> lesCategories, BindingSource bdg, ComboBox cbx)
+        public static void RemplirComboCategorie(List<Categorie> lesCategories, BindingSource bdg, ComboBox cbx)
         {
             bdg.DataSource = lesCategories;
             cbx.DataSource = bdg;
@@ -408,7 +408,7 @@ namespace MediaTekDocuments.view
         /// <param name="e"></param>
         private void btnGestionCommandesLivres_Click(object sender, EventArgs e)
         {
-            OuvrirCommandes(0);
+            FrmMediatek.OuvrirCommandes(0);
         }
         #endregion
 
@@ -733,7 +733,7 @@ namespace MediaTekDocuments.view
         /// <param name="e"></param>
         private void btnGestionCommandeDvd_Click(object sender, EventArgs e)
         {
-            OuvrirCommandes(1);
+            FrmMediatek.OuvrirCommandes(1);
         }
         #endregion
 
@@ -1055,7 +1055,7 @@ namespace MediaTekDocuments.view
         /// <param name="e"></param>
         private void btnRevuesCommandes_Click(object sender, EventArgs e)
         {
-            OuvrirCommandes(2);
+            FrmMediatek.OuvrirCommandes(2);
         }
         #endregion
 

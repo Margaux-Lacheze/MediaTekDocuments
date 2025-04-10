@@ -12,13 +12,13 @@ namespace MediaTekDocuments.model
     /// </summary>
     public class Suivi
     {
-        public Suivi(string idService, string libelle)
+        public Suivi(string id, string libelle)
         {
-            this.IdService = idService;
+            this.Id = id;
             this.Libelle = libelle;
         }
 
-        public string IdService { get; set; }
+        public string Id { get; set; }
         public string Libelle { get; set; }
     }
 }

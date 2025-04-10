@@ -19,5 +19,17 @@ namespace MediaTekDocuments.model
 
         public DateTime DateFinAbonnement { get; set; }
         public string IdRevue { get; set; }
+
+        /// <summary>
+        /// Vérifie si un exemplaire est rattaché à un abonnement
+        /// </summary>
+        /// <param name="dateCommande"></param>
+        /// <param name="dateFinAbonnement"></param>
+        /// <param name="dateParutionExemplaire"></param>
+        /// <returns>True si un exemplaire est présent entre la date de commande et la date de fin d'abonnement</returns>
+        public bool ParutionDansAbonnement(DateTime dateParution)
+        {
+            return dateParution >= this.DateCommande && dateParution <= this.DateFinAbonnement;
+        }
     }
 }

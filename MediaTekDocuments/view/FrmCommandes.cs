@@ -63,7 +63,7 @@ namespace MediaTekDocuments.view
         /// <param name="lesSuivis"></param>
         /// <param name="bdg"></param>
         /// <param name="cbx"></param>
-        private void RemplirComboSuivi(List<Suivi> lesSuivis, BindingSource bdg, ComboBox cbx)
+        private static void RemplirComboSuivi(List<Suivi> lesSuivis, BindingSource bdg, ComboBox cbx)
         {
             bdg.DataSource = lesSuivis;
             cbx.DataSource = bdg;
@@ -141,7 +141,7 @@ namespace MediaTekDocuments.view
         /// <param name="e"></param>
         private void btnCommandeLivreRechercher_Click(object sender, EventArgs e)
         {
-            if (!(txtCommandeLivreRechercheNumero.Text == ""))
+            if (txtCommandeLivreRechercheNumero.Text != "")
             {
                 Livre livre = lesLivres.Find(x => x.Id.Equals(txtCommandeLivreRechercheNumero.Text));
                 if (livre != null)
@@ -240,7 +240,6 @@ namespace MediaTekDocuments.view
                         string idSuivi = cbxCommandeLivre.SelectedValue.ToString();
                         string libelle = "";
                         CommandeDocument commandeModif = new CommandeDocument(id, dateCommande, montant, nbExemplaire, idLivreDvd, idSuivi, libelle);
-                        //Console.WriteLine("commande modifiée dans la vue = " + JsonConvert.SerializeObject(commandeModif));
                         if (controller.ModifierCommandeDocument(commandeModif))
                         {
                             MessageBox.Show("Commande modifiée avec succès", "Succès", MessageBoxButtons.OK);
@@ -272,7 +271,6 @@ namespace MediaTekDocuments.view
                         string idSuivi = ENCOURS;
                         string libelle = "";
                         CommandeDocument nouvelleCommande = new CommandeDocument(id, dateCommande, montant, nbExemplaire, idLivreDvd, idSuivi, libelle);
-                        // Console.WriteLine("nouvelle commande dans la vue = " + JsonConvert.SerializeObject(nouvelleCommande));
                         if (controller.CreerNouvelleCommandeDocument(nouvelleCommande))
                         {
                             MessageBox.Show("Nouvelle commande ajoutée", "Succès", MessageBoxButtons.OK);
@@ -286,11 +284,7 @@ namespace MediaTekDocuments.view
                     }
                     catch (Exception ex)
                     {
-                        // Afficher le message d'erreur complet
-                        //MessageBox.Show($"Erreur détaillée: {ex.Message}\n\nType: {ex.GetType().Name}", "Diagnostic");
-
-                        // Enregistrer la pile d'appels dans la console
-                        //Console.WriteLine(ex.StackTrace);
+                        Console.WriteLine(ex.Message);
                         MessageBox.Show("L'ajout a échoué, veuillez ré-essayer", "Attention");
                     }
                 }
@@ -833,7 +827,6 @@ namespace MediaTekDocuments.view
                     try
                     {
                         CommandeDocument commandeDvd = (CommandeDocument)bdgCommandesDocument.List[bdgCommandesDocument.Position];
-                        // Console.WriteLine("commande dvd = " + JsonConvert.SerializeObject(commandeDvd));
                         string id = commandeDvd.Id;
                         DateTime dateCommande = dtpCommandeDvd.Value;
                         double montant = double.Parse(txtCommandeDvdMontant.Text);
@@ -1046,7 +1039,7 @@ namespace MediaTekDocuments.view
             {
                 Abonnement abonnementSelection = (Abonnement)bdgAbonnementsListe.List[bdgAbonnementsListe.Position];
 
-                bool exemplaireAbonnement = lesExemplaires.Any(exemplaire => controller.ParutionDansAbonnement(abonnementSelection.DateCommande, abonnementSelection.DateFinAbonnement, exemplaire.DateAchat));
+                bool exemplaireAbonnement = lesExemplaires.Any(exemplaire => abonnementSelection.ParutionDansAbonnement(exemplaire.DateAchat));
 
                 btnAbonnementSupprimer.Enabled = !exemplaireAbonnement;
             }

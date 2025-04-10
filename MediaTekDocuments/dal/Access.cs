@@ -147,7 +147,7 @@ namespace MediaTekDocuments.dal
         /// <returns>Liste d'objets Exemplaire</returns>
         public List<Exemplaire> GetExemplairesRevue(string idDocument)
         {
-            String jsonIdDocument = convertToJson("id", idDocument);
+            String jsonIdDocument = ConvertToJson("id", idDocument);
             List<Exemplaire> lesExemplaires = TraitementRecup<Exemplaire>(GET, "exemplaire/" + jsonIdDocument, null);
             return lesExemplaires;
         }
@@ -189,7 +189,7 @@ namespace MediaTekDocuments.dal
         /// <returns></returns>
         public List<CommandeDocument> GetAllCommandeDocument(string idDocument)
         {
-            String jsonIdDocument = convertToJson("id", idDocument);
+            String jsonIdDocument = ConvertToJson("id", idDocument);
             List<CommandeDocument> lesCommandesDocuments = TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonIdDocument, null);
             return lesCommandesDocuments;
         }
@@ -262,7 +262,7 @@ namespace MediaTekDocuments.dal
         /// <returns>True si la suppression a réussi</returns>
         public bool SupprimerCommande(string idCommande)
         {
-            String jsonIdCommande = convertToJson("id", idCommande);
+            String jsonIdCommande = ConvertToJson("id", idCommande);
             try
             {
                 List<Commande> liste = TraitementRecup<Commande>(DEL, "commande/" + jsonIdCommande, null);
@@ -302,28 +302,9 @@ namespace MediaTekDocuments.dal
         /// <returns></returns>
         public List<Abonnement> GetAllAbonnement(string idDocument)
         {
-            String jsonIdDocument = convertToJson("id", idDocument);
+            String jsonIdDocument = ConvertToJson("id", idDocument);
             List<Abonnement> lesAbonnements = TraitementRecup<Abonnement>(GET, "abonnement/" + jsonIdDocument, null);
             return lesAbonnements;
-        }
-
-        /// <summary>
-        /// Vérifie si un exemplaire est rattaché à un abonnement
-        /// </summary>
-        /// <param name="dateCommande"></param>
-        /// <param name="dateFinAbonnement"></param>
-        /// <param name="dateParutionExemplaire"></param>
-        /// <returns>True si un exemplaire est présent entre la date de commande et la date de fin d'abonnement</returns>
-        public bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateFinAbonnement, DateTime dateParutionExemplaire)
-        {
-            if (dateParutionExemplaire >= dateCommande && dateParutionExemplaire <= dateFinAbonnement)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         /// <summary>
@@ -344,7 +325,7 @@ namespace MediaTekDocuments.dal
         /// <returns>un objet de type Utilisateur</returns>
         public Utilisateur CheckUtilisateur(string login, string password)
         {
-            String jsonLogin = convertToJson("login", login);
+            String jsonLogin = ConvertToJson("login", login);
             List<Utilisateur> utilisateur = TraitementRecup<Utilisateur>(GET, "utilisateur/" + jsonLogin, null);
             if (utilisateur != null && utilisateur.Count > 0)
             {
@@ -410,7 +391,7 @@ namespace MediaTekDocuments.dal
         /// <param name="nom"></param>
         /// <param name="valeur"></param>
         /// <returns>couple au format json</returns>
-        private String convertToJson(Object nom, Object valeur)
+        private String ConvertToJson(Object nom, Object valeur)
         {
             Dictionary<Object, Object> dictionary = new Dictionary<Object, Object>();
             dictionary.Add(nom, valeur);
