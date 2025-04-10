@@ -28,13 +28,6 @@ namespace MediaTekDocuments.view
         private Boolean modifCommande = false;
         const string ENCOURS = "00001";
         const string RELANCEE = "00004";
-        private readonly Dictionary<string, List<string>> transitionsAutoriseesEtapesCommandeString = new Dictionary<string, List<string>>()
-        {
-            { "00001", new List<string> { "00004", "00002" } }, // En cours peut être relancée ou livrée
-            { "00002", new List<string> { "00003" } }, // Livrée peut être réglée
-            { "00003", new List<string>() }, // Réglée ne change plus
-            { "00004", new List<string> { "00001", "00002" } } // Relancée peut être livrée ou remise en cours
-        };
 
         /// <summary>
         /// Création du contrôleur lié à ce formulaire
@@ -347,23 +340,15 @@ namespace MediaTekDocuments.view
             if (modifCommande)
             {
                 CommandeDocument commandeLivre = (CommandeDocument)bdgCommandesDocument.List[bdgCommandesDocument.Position];
-                string ancienneEtape = commandeLivre.IdSuivi;
                 string nouvelleEtape = cbxCommandeLivre.SelectedValue.ToString();
 
-                if (ancienneEtape != nouvelleEtape)
+                if (!commandeLivre.EstTransitionAutorisee(nouvelleEtape))
                 {
-                    if (!transitionsAutoriseesEtapesCommandeString[ancienneEtape].Contains(nouvelleEtape))
-                    {
-                        MessageBox.Show($"Changement du stade de commande non autorisé.\n\n • A l'ajout une commande est en cours \n • Une commande peut ensuite être livrée ou relancée \n • Enfin, la commande sera réglée.", "Information");
-                        // Ne pas écouter événement le temps du changement
-                        cbxCommandeLivre.SelectedIndexChanged -= cbxCommandeLivre_SelectedIndexChanged;
-                        cbxCommandeLivre.SelectedValue = ancienneEtape;
-                        cbxCommandeLivre.SelectedIndexChanged += cbxCommandeLivre_SelectedIndexChanged;
-                    }
-                    else
-                    {
-                        cbxCommandeDvd.SelectedValue = nouvelleEtape;
-                    }
+                    MessageBox.Show("Changement du stade de commande non autorisé.\n\n • A l'ajout une commande est en cours \n • Une commande peut ensuite être livrée ou relancée \n • Enfin, la commande sera réglée.", "Information");
+                    // Ne pas écouter événement le temps du changement
+                    cbxCommandeLivre.SelectedIndexChanged -= cbxCommandeLivre_SelectedIndexChanged;
+                    cbxCommandeLivre.SelectedValue = commandeLivre.IdSuivi;
+                    cbxCommandeLivre.SelectedIndexChanged += cbxCommandeLivre_SelectedIndexChanged;
                 }
             }
         }
@@ -944,23 +929,15 @@ namespace MediaTekDocuments.view
             if (modifCommande)
             {
                 CommandeDocument commandeDvd = (CommandeDocument)bdgCommandesDocument.List[bdgCommandesDocument.Position];
-                string ancienneEtape = commandeDvd.IdSuivi;
                 string nouvelleEtape = cbxCommandeDvd.SelectedValue.ToString();
 
-                if (ancienneEtape != nouvelleEtape)
+                if (!commandeDvd.EstTransitionAutorisee(nouvelleEtape))
                 {
-                    if (!transitionsAutoriseesEtapesCommandeString[ancienneEtape].Contains(nouvelleEtape))
-                    {
-                        MessageBox.Show($"Changement du stade de commande non autorisé.\n\n • A l'ajout une commande est en cours \n • Une commande peut ensuite être livrée ou relancée \n • Enfin, la commande sera réglée.", "Information");
-                        // Pour éviter que le messageBox se redéclenche
-                        cbxCommandeDvd.SelectedIndexChanged -= cbxCommandeDvd_SelectedIndexChanged;
-                        cbxCommandeDvd.SelectedValue = ancienneEtape;
-                        cbxCommandeDvd.SelectedIndexChanged += cbxCommandeDvd_SelectedIndexChanged;
-                    }
-                    else
-                    {
-                        cbxCommandeDvd.SelectedValue = nouvelleEtape;
-                    }
+                    MessageBox.Show("Changement du stade de commande non autorisé.\n\n • A l'ajout une commande est en cours \n • Une commande peut ensuite être livrée ou relancée \n • Enfin, la commande sera réglée.", "Information");
+                    // Pour éviter que le messageBox se redéclenche
+                    cbxCommandeDvd.SelectedIndexChanged -= cbxCommandeDvd_SelectedIndexChanged;
+                    cbxCommandeDvd.SelectedValue = commandeDvd.IdSuivi;
+                    cbxCommandeDvd.SelectedIndexChanged += cbxCommandeDvd_SelectedIndexChanged;
                 }
             }
         }
