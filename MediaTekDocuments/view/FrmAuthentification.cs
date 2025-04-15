@@ -20,12 +20,20 @@ namespace MediaTekDocuments.view
     {
         private readonly FrmAuthentificationController controller;
 
+        /// <summary>
+        /// Constructeur : création du contrôleur lié à ce formulaire
+        /// </summary>
         public FrmAuthentification()
         {
             InitializeComponent();
             this.controller = new FrmAuthentificationController();
         }
 
+        /// <summary>
+        /// Clic sur le bouton "Se connecter", vérifie les droits de l'utilisateur
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAuthConnect_Click(object sender, EventArgs e)
         {
             string login = txtAuthLogin.Text;

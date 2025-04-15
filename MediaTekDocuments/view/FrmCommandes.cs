@@ -354,7 +354,7 @@ namespace MediaTekDocuments.view
         }
 
         /// <summary>
-        /// 
+        /// Gère les contrôles lorsque la sélection dans le datagridview des commandes change
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -721,7 +721,7 @@ namespace MediaTekDocuments.view
         }
 
         /// <summary>
-        /// 
+        /// Gère l'affichage lorsque le focus est sur la zone de saisie du numéro de dvd
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -991,7 +991,7 @@ namespace MediaTekDocuments.view
         }
 
         /// <summary>
-        /// 
+        /// Gère l'affichage du bouton d'ajout d'un abonnement
         /// </summary>
         /// <returns>true si l'ajout est possible</returns>
         public void GestionBoutonAjout()
@@ -1016,7 +1016,7 @@ namespace MediaTekDocuments.view
             {
                 Abonnement abonnementSelection = (Abonnement)bdgAbonnementsListe.List[bdgAbonnementsListe.Position];
 
-                bool exemplaireAbonnement = lesExemplaires.Any(exemplaire => abonnementSelection.ParutionDansAbonnement(exemplaire.DateAchat));
+                bool exemplaireAbonnement = lesExemplaires.Any(exemplaire => abonnementSelection.ParutionDansAbonnement(abonnementSelection.DateCommande, abonnementSelection.DateFinAbonnement, exemplaire.DateAchat));
 
                 btnAbonnementSupprimer.Enabled = !exemplaireAbonnement;
             }
@@ -1367,6 +1367,11 @@ namespace MediaTekDocuments.view
             GestionBoutonGestion();
         }
 
+        /// <summary>
+        /// Clic sur le bouton supprimer : demande une confirmation puis gère l'affichage en fonction
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAbonnementSupprimer_Click(object sender, EventArgs e)
         {
             Abonnement abonnementSelected = (Abonnement)bdgAbonnementsListe.List[bdgAbonnementsListe.Position];

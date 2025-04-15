@@ -18,6 +18,9 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgAbonnementsExpireListe = new BindingSource();
         private bool existenceAbonnementsExpire;
 
+        /// <summary>
+        /// Création du contrôleur lié à ce formulaire
+        /// </summary>
         public FrmAlerteAbonnements()
         {
             InitializeComponent();

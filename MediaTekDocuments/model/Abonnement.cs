@@ -27,9 +27,9 @@ namespace MediaTekDocuments.model
         /// <param name="dateFinAbonnement"></param>
         /// <param name="dateParutionExemplaire"></param>
         /// <returns>True si un exemplaire est présent entre la date de commande et la date de fin d'abonnement</returns>
-        public bool ParutionDansAbonnement(DateTime dateParution)
+        public bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateFinAbonnement, DateTime dateParution)
         {
-            return dateParution >= this.DateCommande && dateParution <= this.DateFinAbonnement;
+            return dateParution >= dateCommande && dateParution <= dateFinAbonnement;
         }
     }
 }
