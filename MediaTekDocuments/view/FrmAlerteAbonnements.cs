@@ -12,6 +12,9 @@ using MediaTekDocuments.model;
 
 namespace MediaTekDocuments.view
 {
+    /// <summary>
+    /// Classe d'affichage
+    /// </summary>
     public partial class FrmAlerteAbonnements : Form
     {
         private readonly FrmAlerteAbonnementsController controller;

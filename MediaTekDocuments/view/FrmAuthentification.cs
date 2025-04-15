@@ -16,6 +16,9 @@ using System.Windows.Forms.Design;
 
 namespace MediaTekDocuments.view
 {
+    /// <summary>
+    /// Classe d'Affichage
+    /// </summary>
     public partial class FrmAuthentification : Form
     {
         private readonly FrmAuthentificationController controller;
