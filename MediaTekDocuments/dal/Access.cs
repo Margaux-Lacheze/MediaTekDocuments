@@ -22,7 +22,7 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = "http://52.143.180.240/rest_mediatekdocuments/";
         /// <summary>
         /// instance unique de la classe
         /// </summary>
