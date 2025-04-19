@@ -1,10 +1,45 @@
 # MediatekDocuments
-Cette application permet de gérer les documents (livres, DVD, revues) d'une médiathèque. Elle a été codée en C# sous Visual Studio 2019. C'est une application de bureau, prévue d'être installée sur plusieurs postes accédant à la même base de données.<br>
-L'application exploite une API REST pour accéder à la BDD MySQL. Des explications sont données plus loin, ainsi que le lien de récupération.
-## Présentation
-Actuellement l'application est partiellement codée. Voici les fonctionnalités actuellement opérationnelles : recherches et affichage d'informations sur les documents de la médiathèque (livres, DVD, revues), réception de nouveaux numéros de revues.<br>
-![img1](https://github.com/CNED-SLAM/MediaTekDocuments/assets/100127886/9b5a4c1b-6914-4455-94bf-fec24adba3ec)
-<br>L'application ne comporte qu'une seule fenêtre divisée en plusieurs onglets.
+Cette application permet de gérer les documents (livres, DVD, revues) d'une médiathèque. Elle a été codée en C# sous Visual Studio 2022. C'est une application de bureau, prévue d'être installée sur plusieurs postes accédant à la même base de données.<br>
+L'application exploite une API REST pour accéder à la BDD MySQL. Seules des fonctionnalités ajoutées sont présentées ici (gestion des commandes et authentification), pour retrouver les explications sur l'application de base, veuillez vous rendre sur ce dépôt : https://github.com/CNED-SLAM/MediaTekDocuments
+## Installation
+Pour utiliser cette application, il vous suffit de télécharger le fichier Mediatek Documents.msi présent dans ce dépôt. Une fois le fichier téléchargé, double cliquez dessus et l'installateur se lancera. Suivez les étapes jusqu'à la fin et accédez à l'application via votre dossier Programmes ou par le raccourci créé sur votre bureau<br>
+<img width="59" alt="icone bureau" src="https://github.com/user-attachments/assets/265ba243-db16-4aff-867d-c2ed34655a9c" />
+
+## Connexion
+Pour pouvoir accéder aux fonctionnalités de l'application, vous devez d'abord vous connecter en saisissant vos identifiants (login et mot de passe). Certains accès sont bridés selon le service d'appartenance de l'utilisateur :<br>
+. L'administrateur et le personnel du service administratif ont accès à toutes les fonctionnalités (catalogue et commandes)<br>
+. Le personnel du service prêts n'a accès qu'à la partie catalogue<br>
+. Le personnel du service culture n'a pas accès à l'application<br>
+
+<img width="233" alt="image" src="https://github.com/user-attachments/assets/7e841242-78a6-41ff-ac3a-74e6ca7b47bb" />
+
+## Abonnements arrivant à expiration
+Une fois connecté, si vous avez les droits du service administratifs alors une fenêtre vous informant des abonnements aux revues arrivant à expiration s'ouvrira. Une fois cette fenêtre fermée vous arriverez sur le catalogue. Pour le personnel n'ayant pas les droits, le catalogue seul s'affichera et les fonctionnalités décrites plus loin ne seront pas disponibles. Pour ceux-là, le fonctionnement de l'application est expliquée dans le readme du dépôt github d'origine dont le lien est donné plus haut.<br>
+
+<img width="653" alt="image" src="https://github.com/user-attachments/assets/0b87df38-3d2a-4004-b5ba-c9eafb18aee1" />
+
+## Gestion des commandes
+### Accéder à la gestion des commandes
+Sur chaque onglet du catalogue, un bouton "gérer les commandes" est présent en haut à droite. Il suffit de cliquer dessus pour accéder à la fenêtre de gestion des commandes. Selon l'onglet du catalogue où vous vous trouvez, l'application vous positionnera directement sur l'onglet de commandes correspondant. Par exemple, si vous êtes sur l'onglet livres du catalogue, le clic sur le bouton vous positionnera sur l'onglet de gestion des commandes de livres. Pour vous rendre sur les commandes d'un autre type de document, vous n'êtes pas obligés de repasser par le catalogue.<br>
+<img width="655" alt="image" src="https://github.com/user-attachments/assets/50def763-d41b-4e1b-883b-b8097a812a97" />
+<br>
+En effet, la gestion du commande est une seule fenêtre séparée en trois onglets distincts :<br>
+. livres<br>
+. dvd<br>
+. revues<br>
+
+<img width="399" alt="image" src="https://github.com/user-attachments/assets/15013521-11fb-4335-a263-a0f69f178bd2" />
+
+
+### Gestion des commandes de documents type livres ou dvd
+![image](https://github.com/user-attachments/assets/e4f67008-670b-435d-9a4b-94c190210a5a)
+<br>
+Les commandes de livres ou de DVD suivent le même principe. Dans un souci de simplification, nous ne présenterons donc pas les commandes de dvd.<br>
+
+
+
+
+
 ## Les différents onglets
 ### Onglet 1 : Livres
 Cet onglet présente la liste des livres, triée par défaut sur le titre.<br>
@@ -72,6 +107,6 @@ https://github.com/CNED-SLAM/rest_mediatekdocuments<br>
 avec toutes les explications pour l'utiliser (dans le readme).
 ## Installation de l'application
 Ce mode opératoire permet d'installer l'application pour pouvoir travailler dessus.<br>
-- Installer Visual Studio 2019 entreprise et les extension Specflow et newtonsoft.json (pour ce dernier, voir l'article "Accéder à une API REST à partir d'une application C#" dans le wiki de ce dépôt : consulter juste le début pour la configuration, car la suite permet de comprendre le code existant).<br>
+- Installer Visual Studio 2022 entreprise et l'extension newtonsoft.json (pour ce dernier, voir l'article "Accéder à une API REST à partir d'une application C#" dans le wiki de ce dépôt : consulter juste le début pour la configuration, car la suite permet de comprendre le code existant).<br>
 - Télécharger le code et le dézipper puis renommer le dossier en "mediatekdocuments".<br>
 - Récupérer et installer l'API REST nécessaire (https://github.com/CNED-SLAM/rest_mediatekdocuments) ainsi que la base de données (les explications sont données dans le readme correspondant).
