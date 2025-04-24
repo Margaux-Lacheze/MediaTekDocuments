@@ -303,6 +303,7 @@ namespace MediaTekDocuments.view
             {
                 CommandeLivreEnCoursModification(false);
                 gpbCommandeLivreNouvelleCommande.Enabled = false;
+                dgvAbonnementCommandes.ClearSelection();
                 CommandeLivreEnCoursEdition(false);
             }
         }
@@ -337,7 +338,7 @@ namespace MediaTekDocuments.view
         /// <param name="e"></param>
         private void cbxCommandeLivre_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (modifCommande)
+            if (modifCommande && cbxCommandeLivre.SelectedValue != null)
             {
                 CommandeDocument commandeLivre = (CommandeDocument)bdgCommandesDocument.List[bdgCommandesDocument.Position];
                 string nouvelleEtape = cbxCommandeLivre.SelectedValue.ToString();
@@ -927,7 +928,7 @@ namespace MediaTekDocuments.view
         /// <param name="e"></param>
         private void cbxCommandeDvd_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (modifCommande)
+            if (modifCommande && cbxCommandeDvd.SelectedValue != null)
             {
                 CommandeDocument commandeDvd = (CommandeDocument)bdgCommandesDocument.List[bdgCommandesDocument.Position];
                 string nouvelleEtape = cbxCommandeDvd.SelectedValue.ToString();

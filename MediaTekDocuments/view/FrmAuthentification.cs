@@ -49,14 +49,11 @@ namespace MediaTekDocuments.view
                 if (Service.IdService == 3)
                 {
                     MessageBox.Show("Vous n'avez pas les droits suffisants pour accéder à l'application", "Avertissement");
-                    this.Close();
+                    this.DialogResult = DialogResult.Cancel;
                 }
                 else
                 {
                     this.DialogResult = DialogResult.OK;
-                    FrmMediatek frmMediatek = new FrmMediatek();
-                    frmMediatek.Show();
-                    
                 }
             }
             else

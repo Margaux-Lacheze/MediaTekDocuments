@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaTekDocuments", "MediaT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaTekDocumentsTests", "MediaTekDocumentsTests\MediaTekDocumentsTests.csproj", "{DE14A969-6DB2-4FA0-8E03-20E436166C5A}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Mediatek Documents", "Mediatek Documents\Mediatek Documents.vdproj", "{E35C246E-6332-48B9-A33D-BFE27A7D25B3}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Mediatek", "Mediatek\Mediatek.vdproj", "{3C0296C8-5E54-4C05-BAFE-E7D94CB81C1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{DE14A969-6DB2-4FA0-8E03-20E436166C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE14A969-6DB2-4FA0-8E03-20E436166C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE14A969-6DB2-4FA0-8E03-20E436166C5A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E35C246E-6332-48B9-A33D-BFE27A7D25B3}.Debug|Any CPU.ActiveCfg = Debug
-		{E35C246E-6332-48B9-A33D-BFE27A7D25B3}.Debug|Any CPU.Build.0 = Debug
-		{E35C246E-6332-48B9-A33D-BFE27A7D25B3}.Release|Any CPU.ActiveCfg = Release
-		{E35C246E-6332-48B9-A33D-BFE27A7D25B3}.Release|Any CPU.Build.0 = Release
+		{3C0296C8-5E54-4C05-BAFE-E7D94CB81C1A}.Debug|Any CPU.ActiveCfg = Debug
+		{3C0296C8-5E54-4C05-BAFE-E7D94CB81C1A}.Debug|Any CPU.Build.0 = Debug
+		{3C0296C8-5E54-4C05-BAFE-E7D94CB81C1A}.Release|Any CPU.ActiveCfg = Release
+		{3C0296C8-5E54-4C05-BAFE-E7D94CB81C1A}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
