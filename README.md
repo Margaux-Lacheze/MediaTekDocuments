@@ -2,7 +2,7 @@
 Cette application permet de gérer les documents (livres, DVD, revues) d'une médiathèque. Elle a été codée en C# sous Visual Studio 2022. C'est une application de bureau, prévue d'être installée sur plusieurs postes accédant à la même base de données.<br>
 L'application exploite une API REST pour accéder à la BDD MySQL. Seules des fonctionnalités ajoutées sont présentées ici (gestion des commandes et authentification), pour retrouver les explications sur l'application de base, veuillez vous rendre sur ce dépôt : https://github.com/CNED-SLAM/MediaTekDocuments
 ## Installation
-Pour utiliser cette application, il vous suffit de télécharger le fichier Mediatek Documents.msi présent dans ce dépôt. Une fois le fichier téléchargé, double cliquez dessus et l'installateur se lancera. Suivez les étapes jusqu'à la fin et accédez à l'application via votre dossier Programmes ou par le raccourci créé sur votre bureau<br>
+Pour utiliser cette application, il vous suffit de télécharger le fichier Mediatek.msi présent dans ce dépôt. Une fois le fichier téléchargé, double cliquez dessus et l'installateur se lancera. Suivez les étapes jusqu'à la fin et accédez à l'application via votre dossier Programmes ou par le raccourci créé sur votre bureau<br>
 <img width="59" alt="icone bureau" src="https://github.com/user-attachments/assets/265ba243-db16-4aff-867d-c2ed34655a9c" />
 
 ## Connexion
